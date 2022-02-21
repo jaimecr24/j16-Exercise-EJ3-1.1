@@ -2,12 +2,15 @@ package com.exercise.ej31.estudiante.infrastructure;
 
 import com.exercise.ej31.estudiante.domain.Estudiante;
 import com.exercise.ej31.persona.domain.Persona;
-import lombok.Data;
+import com.exercise.ej31.shared.OuputDTO;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
-@Data
-public class EstudiantePersonaOutputDTO {
+@Getter
+@Setter
+public class EstudiantePersonaOutputDTO extends OuputDTO {
     // Data like person:
     private String id_estudiante;
     private String id_persona;
@@ -28,6 +31,7 @@ public class EstudiantePersonaOutputDTO {
     private String branch;
 
     public EstudiantePersonaOutputDTO(Estudiante estudiante){
+        super();
         // Data like persona
         Persona persona = estudiante.getPersona();
         this.id_estudiante = estudiante.getId_student();

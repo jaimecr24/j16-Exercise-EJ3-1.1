@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.exercise.ej31.shared.OuputDTO;
 
 import java.util.List;
 
@@ -23,16 +24,14 @@ public class EstudianteController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Object> getById(@PathVariable String id, @RequestParam(name = "outputType") String outputType) throws Exception
+    public ResponseEntity<OuputDTO> getById(
+            @PathVariable String id,
+            @RequestParam(name = "outputType", defaultValue = "simple", required = false) String outputType) throws Exception
     {
-        if (outputType.equals("simple")) {
-            return new ResponseEntity<>(estudianteService.getSimpleById(id), HttpStatus.OK);
-        }
-        else if (outputType.equals("full"))
-        {
+        if (outputType!=null && outputType.equals("full"))
             return new ResponseEntity<>(estudianteService.getFullById(id), HttpStatus.OK);
-        }
-        else throw new UnprocesableException("Error: wrong value in outputType");
+        else
+            return new ResponseEntity<>(estudianteService.getSimpleById(id), HttpStatus.OK);
     }
 
     @PostMapping
